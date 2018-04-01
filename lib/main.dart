@@ -92,7 +92,32 @@ class RandomWordsState extends State <RandomWords>{
    );
      }
 
-     void _pushSaved(){
+     void _pushSaved() {
+       Navigator.of(context).push(
+         new MaterialPageRoute(builder: (context) {
+           final tiles = _saved.map(
+                 (pair) {
+               return new ListTile(
+                 title: new Text(
+                   pair.asPascalCase,
+                   style: _biggerFont,
+                 ),
+               );
+             },
+           );
+           final divided = ListTile.divideTiles(
+             tiles: tiles,
+             context: context,
+           ).toList();
 
+           return new Scaffold(
+             appBar: new AppBar(
+               title: new Text('Saved Suggesstions'),
+             ),
+             body: new ListView(children: divided,),
+           );
+         },
+         ),
+       );
      }
- }
+}
